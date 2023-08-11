@@ -34,11 +34,11 @@ export class CalendarComponent {
   public breadCrumbHome!: MenuItem;
   public breadCrumbItems: MenuItem[] = [];
   public bookingEvent : BookingEventModel[] = [];
-  currentEvents = [
-    { title: 'event 1', start: '2023-08-17T12:13:00Z', end: '2023-08-18T12:13:00Z' },
-    { title: 'event 2', start: '2023-08-02', end:'2023-08-03' },
-    { title: 'event 3', date: '2023-08-15' },
-    { title: 'event 3', date: '2023-08-16' },
+  currentEvents = [{}
+    // { title: 'event 1', start: '2023-08-17T06:13:00Z', end: '2023-08-18T04:13:00Z' },
+    // { title: 'event 2', start: '2023-08-02T12:13:00Z', end:'2023-08-03T12:13:00Z' },
+    // { title: 'event 3', date: '2023-08-15' },
+    // { title: 'event 3', date: '2023-08-16' },
   ];
 
   events: any[]=[];
@@ -50,22 +50,38 @@ export class CalendarComponent {
     this.breadCrumbItems = [
       { label: 'Dashboard' }
     ];
+    this.getBookings();
+    this.loadCalendar();
+  }
+
+  getBookings(): void{
+    this.bookings = [];
     this.bookingService.getBooking().then(data => 
       {
-        this.bookings = data;
+        // this.bookings = data;
         for (let i = 0; i < data.length; i++) {
           if (data[i].DateFrom == this.BookDate) {
+            this.bookings.push({
+              Guest: data[i].Guest,
+              DateFrom: data[i].DateFrom,
+              DateTo: data[i].DateTo,
+              Room:  data[i].Room,
+              ArrivalDateTime: data[i].ArrivalDateTime,
+            })
               this.bookingEvent.push({
                 title: data[i].Guest,
                 start: data[i].DateFrom,
                 end: data[i].DateTo,
               });
+              this.currentEvents.push({
+                title: data[i].Guest,
+                 start: data[i].DateFrom,
+                 end: data[i].DateTo,
+             })
           }
         }
       }
     );
-    debugger
-    this.loadCalendar();
   }
 
   loadCalendar():void{
@@ -87,7 +103,8 @@ export class CalendarComponent {
   }
 
   handleDateClick(arg: { dateStr: string; }) {
-    this.messageService.add({severity:'info', summary: 'Info', detail: 'Message Content ' + arg.dateStr});
+    this.messageService.add({severity:'info', summary: 'Booking is loaded.', detail: 'Booking as of ' + arg.dateStr+' is loaded'});
     this.BookDate = arg.dateStr;
+    this.getBookings();
   }
 }
