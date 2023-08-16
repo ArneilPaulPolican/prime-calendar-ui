@@ -1,2 +1,24 @@
-<h1>application works</h1>
-<router-outlet></router-outlet>
+<div class="flex absolute top-0 left-0 right-0 bottom-0">
+    <div >
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="flex-grow-1 bg-gray-100 overflow-y-auto overflow-x-hidden">
+        <div class="md:hidden w-full text-center px-5 py-3" style="background-color: #fff;">
+        </div>
+        <app-header  (sidebarToggle)="sidebarToggle()"></app-header>
+        <div class="app-container">
+            <router-outlet></router-outlet>
+        </div>
+        <br />
+
+        <div class="md:hidden h-5rem w-full"></div>
+        <div class="md:hidden absolute bottom-0 w-full">
+            <!-- <app-mobilebar></app-mobilebar> -->
+        </div>
+
+        <div class="hidden md:block h-5rem w-full"></div>
+        <div class="hidden md:block right-0 bottom-0 w-full fixed z-5">
+            <!-- <app-footer></app-footer> -->
+        </div>
+    </div>
+</div>

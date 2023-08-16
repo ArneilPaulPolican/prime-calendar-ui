@@ -1,58 +1,40 @@
-import { DatePipe, formatDate } from '@angular/common';
-import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { Booking } from 'src/app/app-components/booking/booking';
-import { BookingServices } from 'src/app/app-components/booking/booking-services';
-import { BookingEventModel } from 'src/app/app-components/booking/booking.model';
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { BookingServices } from '../../booking/booking-services';
+import { DatePipe } from '@angular/common';
+import { Booking } from '../../booking/booking';
+import { BookingEventModel } from '../../booking/booking.model';
+
 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction';
 
 @Component({
-  selector: 'app-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss'],
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
   providers: [MessageService,DatePipe]
 })
-export class CalendarComponent {
-  datePipe: any;
+export class DashboardComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private bookingService: BookingServices
   ) { }
-  
-  date = new Date();
-  bookings: Booking[] = [];
-  BookDate: string= "";
-  articles = [
-    { title: "Article 1", description: "Description 1"},
-    { title: "Article 2", description: "Description 2"},
-    { title: "Article 3", description: "Description 3"}
- ];
-
-  public breadCrumbHome!: MenuItem;
-  public breadCrumbItems: MenuItem[] = [];
-  public bookingEvent : BookingEventModel[] = [];
-  currentEvents = [{}
-    // { title: 'event 1', start: '2023-08-17T06:13:00Z', end: '2023-08-18T04:13:00Z' },
-    // { title: 'event 2', start: '2023-08-02T12:13:00Z', end:'2023-08-03T12:13:00Z' },
-    // { title: 'event 3', date: '2023-08-15' },
-    // { title: 'event 3', date: '2023-08-16' },
-  ];
-
-  events: any[]=[];
-  calendarOptions: any;
-
   ngOnInit(): void {
-    this.BookDate =  formatDate(new Date(), 'yyyy-MM-dd', 'en');
-    this.breadCrumbHome = { icon: 'pi pi-home' };
-    this.breadCrumbItems = [
-      { label: 'Dashboard' }
-    ];
     this.getBookings();
     this.loadCalendar();
   }
+
+  public bookingEvent : BookingEventModel[] = [];
+  date = new Date();
+  datePipe: any;
+  events: any[]=[];
+  calendarOptions: any;
+  bookings: Booking[] = [];
+  BookDate: string= "";
+  currentEvents = [{}];
+
 
   getBookings(): void{
     this.bookings = [];
@@ -92,9 +74,9 @@ export class CalendarComponent {
       dateClick: this.handleDateClick.bind(this), // bind is important!
       events: this.currentEvents,
       headerToolbar: {
-        left: 'prev,next',
+        left: 'prev,next today',
         center: 'title',
-        right: ''
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
       }, editable: true,
       selectable:true,
       selectMirror: true,

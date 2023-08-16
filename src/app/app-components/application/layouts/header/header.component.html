@@ -1,1 +1,18 @@
-<p>header works!</p>
+<p-menubar>
+    <ng-template pTemplate="start">
+        <!-- <button pButton type="button" icon="pi pi-bars" class="p-button p-button-secondary p-button-text p-button-sm" style="margin-right:10px"></button> -->
+        <!-- <button pButton type="button" icon="pi pi-bars" class="p-button p-button-secondary p-button-text p-button-sm" style="margin-right:10px"></button> -->
+        <span>
+            <button pButton icon="pi pi-bars" type="button" class="p-button p-button-secondary p-button-text p-button-sm" pTooltip="Toggle sidebar"
+                tooltipPosition="bottom" (click)="toggleSidebar()"></button>
+            <button pButton label="C O M P A N Y" type="button" class="p-button p-button-secondary p-button-text p-button-sm" pTooltip="Login Company" tooltipPosition="bottom">
+            </button>
+            <button pButton type="button" class="p-button p-button-secondary p-button-text p-button-sm" pTooltip="Login Branch" tooltipPosition="bottom">BRANCH</button>
+        </span>
+        
+    </ng-template>
+    <ng-template pTemplate="end">
+        <button pButton type="button"  label="LOGOUT" routerLink="/landing" class="p-button p-button-secondary p-button-text p-button-sm" pTooltip="Settings" tooltipPosition="bottom"  icon="pi pi-wrench"></button>
+        <button pButton type="button" label="USER" class="p-button p-button-secondary p-button-text p-button-sm" pTooltip="Login User" tooltipPosition="bottom"></button>
+    </ng-template>
+</p-menubar>

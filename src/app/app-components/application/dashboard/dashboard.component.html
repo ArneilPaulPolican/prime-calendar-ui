@@ -1,0 +1,49 @@
+<p-toast></p-toast>
+<div class="grid grid-nogutter">
+    <div class="col">
+        <div class="text-center p-3 border-round-sm font-bold">1</div>
+    </div>
+    <div class="col">
+        <div class="text-center p-3 border-round-sm font-bold">1</div>
+    </div>
+    <div class="col">
+        <div class="text-center p-3 border-round-sm font-bold">1</div>
+    </div>
+</div>
+<div class="grid">
+    <div class="col-7">
+        <div class="text-center p-3 border-round-sm font-bold">1</div>
+            <div class="row" style="height: 100px; ;">
+                <full-calendar [options]="calendarOptions" ></full-calendar>
+            </div>
+    </div>
+    <div class="col-5">
+        <div class="card">
+            <p-table [value]="bookings" [tableStyle]="{'min-width': '50rem'}">
+                <ng-template pTemplate="caption">
+                    <h1>
+                        Bookings {{BookDate}}
+                    </h1>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th>Guest </th>
+                        <th>DateFrom</th>
+                        <th>DateTo</th>
+                        <th>Room</th>
+                        <th>ArrivalDateTime</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-bookings let-columns="columns">
+                    <tr>
+                        <td>{{bookings.Guest}}</td>
+                        <td>{{bookings.DateFrom}}</td>
+                        <td>{{bookings.DateTo}}</td>
+                        <td>{{bookings.Room}}</td>
+                        <td>{{bookings.ArrivalDateTime}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
